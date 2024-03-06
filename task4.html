@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="eventCalendarApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Responsive Event Calendar</title>
+    <link rel="stylesheet" href="task4.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="task4.js"></script>
+</head>
+<body ng-controller="EventCalendarController as calendarCtrl">
+    <div class="event-calendar">
+        <div class="calendar-header">
+            <button ng-click="calendarCtrl.prevMonth()">&lt;</button>
+            <h2>{{ calendarCtrl.currentMonth | date:'MMMM yyyy' }}</h2>
+            <button ng-click="calendarCtrl.nextMonth()">&gt;</button>
+        </div>
+        <div class="calendar-body">
+            <table class="calendar-table">
+                <thead>
+                    <tr>
+                        <th ng-repeat="day in calendarCtrl.daysOfWeek">{{ day }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="week in calendarCtrl.weeks">
+                        <td ng-repeat="day in week" ng-class="{ 'event-day': calendarCtrl.isEventDay(day) }">
+                            {{ day | date:'d' }}
+                            <div ng-if="calendarCtrl.isEventDay(day)" class="event-indicator"></div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="taskListApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Dynamic Task List Manager</title>
+    <link rel="stylesheet" href="task1.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="task1.js"></script>
+</head>
+<body ng-controller="TaskListController as taskCtrl">
+    <div class="task-list">
+        <h1>Task List Manager</h1>
+
+
+        <!-- Marquee Tag -->
+        <div><marquee behavior="scroll" direction="left" bgcolor="#FFD700" class="marquee-text">
+            Welcome to the Task List Manager!
+        </marquee></div>
+        
+        <!-- Add Task -->
+        <div class="add-task">
+            <input type="text" ng-model="taskCtrl.newTask" placeholder="Add a new task">
+            <button ng-click="taskCtrl.addTask()">Add Task</button>
+        </div>
+
+        <!-- Task List -->
+        <ul>
+            <li ng-repeat="task in taskCtrl.tasks">
+                {{ task.name }}
+                <span class="actions">
+                    <button ng-click="taskCtrl.editTask(task)">Edit</button>
+                    <button ng-click="taskCtrl.deleteTask(task)">Delete</button>
+                </span>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>

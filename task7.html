@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="productCatalogApp">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Product Catalog</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    .catalog-container {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      padding: 20px;
+    }
+
+    .product-card {
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin: 10px;
+      padding: 20px;
+      border-radius: 5px;
+      width: 250px;
+    }
+
+    .product-image {
+      max-width: 100%;
+      height: auto;
+      border-radius: 5px;
+    }
+
+    .filter-container {
+      text-align: center;
+      margin: 20px;
+    }
+
+    .filter-btn {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 5px;
+    }
+
+    .product-buttons {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 10px;
+    }
+
+    .buy-btn,
+    .cart-btn {
+      background-color: #3498db;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 14px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body ng-controller="CatalogController">
+
+  <h1>Product Catalog</h1>
+
+  <div class="filter-container">
+    <button class="filter-btn" ng-click="filterProducts('All')">All</button>
+    <button class="filter-btn" ng-click="filterProducts('Electronics')">Electronics</button>
+    <button class="filter-btn" ng-click="filterProducts('Clothing')">Clothing</button>
+    <!-- Add more category buttons as needed -->
+  </div>
+
+  <div class="marquee">
+    <marquee behavior="scroll" direction="left">
+      <span ng-repeat="product in filteredProducts">{{ product.name }} | </span>
+    </marquee>
+  </div>
+
+  <div class="catalog-container">
+    <div class="product-card" ng-repeat="product in filteredProducts">
+      <img class="product-image" ng-src="{{product.image}}" alt="{{product.name}}">
+      <h2>{{product.name}}</h2>
+      <p>Category: {{product.category}}</p>
+      <p>Price: ₹{{product.price}}</p>
+      <div class="product-buttons">
+        <button class="buy-btn" ng-click="buyProduct(product)">Buy</button>
+        <button class="cart-btn" ng-click="addToCart(product)">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <script>
+    var app = angular.module('productCatalogApp', []);
+
+    app.controller('CatalogController', function ($scope) {
+      $scope.products = [
+        { name: 'Laptop', category: 'Electronics', price: 800, image: 'https://www.reliancedigital.in/medias/HP-V15-fa0998TX-493837767-i-1-1200Wx1200H-300Wx300H?context=bWFzdGVyfGltYWdlc3w4OTg2MTN8aW1hZ2UvanBlZ3xpbWFnZXMvaGFjL2g2ZC8xMDAxMTg0NzQ5MTYxNC5qcGd8ZDcxZDAzMDRhNjhmMWM4ZTM2YWY2ZjkzMmNlOTEyYzEzMjFjNjE4NTg5YTk2ODcwMDhkOTZiMzJkOTQzZDFmNg' },
+        { name: 'Smartphone', category: 'Electronics', price: 500, image: 'https://lh3.googleusercontent.com/proxy/1oy4oOIkNsoefM7gyWJMR6UdEFiluTpKWM3lloJiFX5l8-mvvA1CJY5YsyOBd5lx4pIsmrQOMaipVFBUM_TPiRePKSNoaC4jgsq6-0-5mCcD1bxGts7Bo9vLfujgwu7yuLbvVcDDzA2FWqNejwglcXPM51RDYHTVyhE9VLGnh7ff9GTQkw' },
+        { name: 'T-shirt', category: 'Clothing', price: 20, image: 'https://i.pinimg.com/564x/c1/1d/16/c11d164de692594acf53c9a855093139.jpg' },
+        { name: 'Jeans', category: 'Clothing', price: 50, image: 'https://thumbs.dreamstime.com/b/lee-american-brand-jeans-lee-american-brand-jeans-close-up-lee-logo-blue-men-s-jeans-american-manufacturer-195267531.jpg?w=768' },
+        // Add more products with images and details
+      ];
+
+      $scope.filteredProducts = $scope.products;
+
+      $scope.filterProducts = function (category) {
+        if (category === 'All') {
+          $scope.filteredProducts = $scope.products;
+        } else {
+          $scope.filteredProducts = $scope.products.filter(function (product) {
+            return product.category === category;
+          });
+        }
+      };
+
+      $scope.buyProduct = function (product) {
+        alert('You bought ' + product.name + ' for ₹' + product.price);
+        // Add your buy logic here
+      };
+
+      $scope.addToCart = function (product) {
+        alert('Added ' + product.name + ' to the cart');
+        // Add your cart logic here
+      };
+    });
+  </script>
+</body>
+
+</html>

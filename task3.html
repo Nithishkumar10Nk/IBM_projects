@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="weatherApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Real-time Weather Checker</title>
+    <link rel="stylesheet" href="task3.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="task3.js"></script>
+</head>
+<body ng-controller="WeatherController as weatherCtrl">
+    <div class="weather-container">
+        <h1>Real-time Weather Checker</h1>
+        <div class="search">
+            <input type="text" ng-model="weatherCtrl.city" placeholder="Enter city Name">
+            <button ng-click="weatherCtrl.getWeather()">Get_Weather</button>
+        </div>
+        <div class="weather-info" ng-if="weatherCtrl.weatherData">
+            <h2>{{ weatherCtrl.weatherData.name }}, {{ weatherCtrl.weatherData.sys.country }}</h2>
+            <p>{{ weatherCtrl.weatherData.weather[0].description }}</p>
+            <p>Temperature: {{ weatherCtrl.weatherData.main.temp }} &#8451;</p>
+            <p>Humidity: {{ weatherCtrl.weatherData.main.humidity }}%</p>
+            <p>Wind Speed: {{ weatherCtrl.weatherData.wind.speed }} m/s</p>
+        </div>
+        <div class="error" ng-if="weatherCtrl.error">{{ weatherCtrl.error }}</div>
+    </div>
+</body>
+</html>

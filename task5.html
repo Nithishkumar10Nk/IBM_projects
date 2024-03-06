@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="userAuthApp">
+<head>
+    <meta charset="UTF-8">
+    <title>User Authentication System</title>
+    <link rel="stylesheet" href="task5.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="task5.js"></script>
+</head>
+<body ng-controller="AuthController as authCtrl">
+    <div class="container">
+        <h1>User Authentication System</h1>
+        <div class="form" ng-show="!authCtrl.isLoggedIn">
+            <h2>Log In</h2>
+            <input type="text" placeholder="Username" ng-model="authCtrl.username">
+            <input type="password" placeholder="Password" ng-model="authCtrl.password">
+            <button ng-click="authCtrl.login()">Log In</button>
+            <div class="error" ng-show="authCtrl.loginError">{{ authCtrl.loginError }}</div>
+            <div>New User? <a href="#" ng-click="authCtrl.showSignup()">Sign Up</a></div>
+        </div>
+        <div class="form" ng-show="authCtrl.showSignupForm">
+            <h2>Sign Up</h2>
+            <input type="text" placeholder="Username" ng-model="authCtrl.newUsername">
+            <input type="password" placeholder="Password" ng-model="authCtrl.newPassword">
+            <button ng-click="authCtrl.signup()">Sign Up</button>
+            <div class="error" ng-show="authCtrl.signupError">{{ authCtrl.signupError }}</div>
+            <div>Already have an account? <a href="#" ng-click="authCtrl.showLogin()">Log In</a></div>
+        </div>
+        <div class="welcome" ng-show="authCtrl.isLoggedIn">
+            <h2>Welcome, {{ authCtrl.username }}!</h2>
+            <button ng-click="authCtrl.logout()">Log Out</button>
+        </div>
+    </div>
+</body>
+</html>

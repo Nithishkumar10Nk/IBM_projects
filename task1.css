@@ -1,0 +1,73 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.task-list {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.add-task {
+    margin-bottom: 20px;
+}
+
+.add-task button {
+    background-color: #4CAF50; /* Green color */
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+}
+
+.actions button {
+    margin-left: 10px;
+    cursor: pointer;
+    background-color: #008CBA; /* Blue color */
+    color: white;
+    padding: 8px;
+    border: none;
+    border-radius: 4px;
+}
+
+marquee {
+    background-color: #FFD700; /* Gold color */
+    padding: 10px;
+    border-radius: 4px;
+    color: #333;
+    font-weight: bold;
+}
+
+body {
+    background-image: url('https://img.freepik.com/free-photo/waist-up-shot-bearded-man-has-creative-thinking-colorful-memo-pads-stuck-blue-wall-holds-spiral-notepad_273609-34093.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat; /* Prevent the background image from repeating */
+    height: 100vh; /* Set the height of the body to the viewport height */
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+}
+
+

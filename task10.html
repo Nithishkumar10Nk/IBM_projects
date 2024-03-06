@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="dashboardApp">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Analytics</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+      color: #333;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 20px auto;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    .charts-container {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .chart {
+      width: 48%;
+      margin-bottom: 20px;
+    }
+
+    .final-report {
+      margin-top: 30px;
+      text-align: center;
+      background-color: #3498db;
+      color: #fff;
+      border-radius: 5px;
+      padding: 20px;
+    }
+
+    .final-report h2 {
+      margin-bottom: 10px;
+    }
+
+    .final-report ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .final-report li {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+
+<body ng-controller="DashboardController as dashboardCtrl">
+  <div class="container">
+    <h1>Textile Manufacturing Dashboard</h1>
+
+    <div class="charts-container">
+      <div class="chart">
+        <canvas id="salesChart" width="400" height="200"></canvas>
+      </div>
+
+      <div class="chart">
+        <canvas id="productionChart" width="400" height="200"></canvas>
+      </div>
+
+      <!-- Add more charts as needed -->
+
+    </div>
+
+    <div class="final-report">
+      <h2>Final Report</h2>
+      <p>Summary of key metrics and insights:</p>
+      <ul>
+        <li>Total Sales: {{ dashboardCtrl.calculateTotalSales() }}</li>
+        <li>Average Production: {{ dashboardCtrl.calculateAverageProduction() }}</li>
+        <!-- Add more key metrics as needed -->
+      </ul>
+    </div>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script>
+    angular.module('dashboardApp', [])
+      .controller('DashboardController', function () {
+        var salesData = [50, 60, 70, 80, 90, 100, 110];
+        var productionData = [120, 110, 130, 140, 150, 160, 170];
+
+        this.calculateTotalSales = function () {
+          return salesData.reduce((total, value) => total + value, 0);
+        };
+
+        this.calculateAverageProduction = function () {
+          return productionData.reduce((total, value) => total + value, 0) / productionData.length;
+        };
+
+        var salesChart = new Chart(document.getElementById('salesChart').getContext('2d'), {
+          type: 'line',
+          data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+            datasets: [{
+              label: 'Sales',
+              data: salesData,
+              borderColor: '#3498db',
+              backgroundColor: 'rgba(52, 152, 219, 0.2)',
+              borderWidth: 2
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              x: {
+                grid: {
+                  display: false
+                }
+              },
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        });
+
+        var productionChart = new Chart(document.getElementById('productionChart').getContext('2d'), {
+          type: 'bar',
+          data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+            datasets: [{
+              label: 'Production',
+              data: productionData,
+              backgroundColor: '#2ecc71',
+              borderWidth: 2
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              x: {
+                grid: {
+                  display: false
+                }
+              },
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        });
+
+        // Add more charts and data as needed
+      });
+  </script>
+</body>
+
+</html>

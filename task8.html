@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="todoApp">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animated To-Do List</title>
+  <style>
+    body {
+      background-color: #f0f0f0;
+      font-family: 'Arial', sans-serif;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    input[type="text"] {
+      padding: 8px;
+      margin: 5px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      padding: 8px;
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .task {
+      background-color: #fff;
+      padding: 10px;
+      margin: 5px 0;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .task img {
+      max-width: 200px;
+      margin-right: 40px;
+    }
+
+    .task-enter, .task-leave {
+      transition: all 0.5s;
+    }
+
+    .task-enter {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+
+    .task-enter-active, .task-leave-active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .task-leave-active {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+
+    .buttons {
+      display: flex;
+      align-items: center;
+    }
+
+    .edit, .delete, .save {
+      margin-left: 10px;
+    }
+
+    .edit, .save {
+      background-color: #2196F3;
+    }
+
+    .edit:hover, .save:hover {
+      background-color: #0b7dda;
+    }
+
+    .delete {
+      background-color: #f44336;
+    }
+
+    .delete:hover {
+      background-color: #da190b;
+    }
+  </style>
+</head>
+
+<body ng-controller="TodoController as todoCtrl">
+  <h1>To-Do List</h1>
+  <input type="text" ng-model="todoCtrl.newTask" placeholder="Add a new task">
+  <button ng-click="todoCtrl.addTask()">Add</button>
+  
+  <ul>
+    <li ng-repeat="task in todoCtrl.tasks track by $index" class="task">
+      <img src="https://cdn.dribbble.com/users/4528267/screenshots/9479770/media/fa0f02e4e98e8987cf502fd0fe75138e.gif" alt="Task Image">
+      <span ng-hide="task.editing">{{ task.text }}</span>
+      <input type="text" ng-show="task.editing" ng-model="task.text">
+      <div class="buttons">
+        <button class="edit" ng-click="task.editing = !task.editing">Edit</button>
+        <button class="delete" ng-click="todoCtrl.removeTask($index)">Delete</button>
+        <button class="save" ng-click="task.editing = !task.editing">Save</button>
+      </div>
+    </li>
+  </ul>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script>
+    angular.module('todoApp', [])
+      .controller('TodoController', function () {
+        var self = this;
+        self.tasks = [];
+        self.newTask = '';
+
+        self.addTask = function () {
+          if (self.newTask.trim() !== '') {
+            self.tasks.push({ text: self.newTask, editing: false });
+            self.newTask = '';
+          }
+        };
+
+        self.removeTask = function (index) {
+          self.tasks.splice(index, 1);
+        };
+      });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,92 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-image: url('https://img.freepik.com/free-photo/blurred-abstract-background-smooth-colors_58702-1548.jpg');
+    background-size: cover;
+    background-position: center;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.event-calendar {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 600px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.calendar-header {
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.calendar-header button {
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.calendar-header button:hover {
+    background-color: #388e3c;
+}
+
+.calendar-header h2 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.calendar-body {
+    padding: 20px;
+}
+
+.calendar-table {
+    width: 100%;
+}
+
+.calendar-table th,
+.calendar-table td {
+    text-align: center;
+    padding: 10px 0;
+}
+
+.calendar-table th {
+    background-color: #4CAF50;
+    color: #fff;
+}
+
+.calendar-table td {
+    background-color: #e0e0e0;
+    position: relative;
+}
+
+.calendar-table td.event-day {
+    background-color: #ffa726;
+    color: #fff;
+    font-weight: bold;
+}
+
+.event-indicator {
+    width: 8px;
+    height: 8px;
+    background-color: #e53935;
+    border-radius: 50%;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+

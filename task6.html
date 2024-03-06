@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="quizApp">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Interactive Quiz Application</title>
+    <link rel="stylesheet" href="task6.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="task6.js"></script>
+</head>
+
+<body ng-controller="QuizController as quiz">
+    <div class="quiz-container">
+        <h1>Interactive Quiz</h1>
+        <div ng-show="quiz.quizStarted && !quiz.quizFinished">
+            <div class="question">
+                <p>{{ quiz.currentQuestion.text }}</p>
+                <ul>
+                    <li ng-repeat="option in quiz.currentQuestion.options" ng-click="quiz.checkAnswer(option)">
+                        {{ option }}
+                    </li>
+                </ul>
+            </div>
+            <div class="score">
+                <p>Score: {{ quiz.score }}</p>
+            </div>
+            <button ng-click="quiz.nextQuestion()">Next Question</button>
+        </div>
+        <div ng-show="quiz.quizFinished">
+            <h2>Quiz Finished!</h2>
+            <p>Your score is: {{ quiz.score }}</p>
+            <button ng-click="quiz.restartQuiz()">Restart Quiz</button>
+        </div>
+        <div ng-show="!quiz.quizStarted && !quiz.quizFinished">
+            <button ng-click="quiz.startQuiz()">Start Quiz</button>
+        </div>
+    </div>
+</body>
+
+</html>

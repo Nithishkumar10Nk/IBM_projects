@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="imageGalleryApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Interactive Image Gallery</title>
+    <link rel="stylesheet" href="task2.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="task2.js"></script>
+</head>
+<body ng-controller="ImageGalleryController as galleryCtrl">
+    <header>
+        <h1>Image Gallery</h1>
+    </header>
+    <div class="gallery-container">
+        <div class="image" ng-repeat="image in galleryCtrl.images" ng-click="galleryCtrl.showDetails(image)">
+            <img src="{{ image.url }}" alt="{{ image.title }}">
+            <div class="overlay">
+                <h3>{{ image.title }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="details" ng-show="galleryCtrl.selectedImage">
+        <div class="close-btn" ng-click="galleryCtrl.closeDetails">&times;</div>
+        <h2>{{ galleryCtrl.selectedImage.title }}</h2>
+        <img src="{{ galleryCtrl.selectedImage.url }}" alt="{{ galleryCtrl.selectedImage.title }}">
+        <p>{{ galleryCtrl.selectedImage.description }}</p>
+    </div>
+</body>
+</html>

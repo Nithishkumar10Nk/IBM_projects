@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="chatApp">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Real-time Chat Application</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f0f0;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 20px auto;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .chat-box {
+      height: 400px;
+      overflow-y: scroll;
+      padding: 20px;
+    }
+
+    .message {
+      margin-bottom: 10px;
+    }
+
+    input[type="text"] {
+      width: 80%;
+      padding: 10px;
+      margin: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      padding: 10px;
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+
+<body ng-controller="ChatController as chatCtrl">
+  <div class="container">
+    <div class="chat-box">
+      <div class="message" ng-repeat="message in chatCtrl.messages">
+        <strong>{{ message.sender }}:</strong> {{ message.text }}
+      </div>
+    </div>
+
+    <input type="text" ng-model="chatCtrl.newMessage" placeholder="Type your message...">
+    <button ng-click="chatCtrl.sendMessage()">Send</button>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.1/socket.io.js"></script>
+
+  <script>
+    angular.module('chatApp', [])
+      .controller('ChatController', function ($scope) {
+        var socket = io(); // Connect to your WebSocket server
+
+        this.messages = [];
+        this.newMessage = '';
+
+        socket.on('chat message', function (msg) {
+          $scope.$apply(function () {
+            this.messages.push(msg);
+          }.bind(this));
+        }.bind(this));
+
+        this.sendMessage = function () {
+          if (this.newMessage.trim() !== '') {
+            socket.emit('chat message', { sender: 'You', text: this.newMessage });
+            this.newMessage = '';
+          }
+        };
+      });
+  </script>
+</body>
+
+</html>
